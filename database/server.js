@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: './database/.env' })
 const express = require('express')
 const routes = require('./routes')
 const mongoose = require('mongoose')
@@ -14,10 +14,6 @@ app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
 })
-
-// app.listen(process.env.PORT, () => {
-//   console.log('listening 4000', process.env.PORT)
-// })
 
 mongoose.connect(mongoString)
   .then(() => {
