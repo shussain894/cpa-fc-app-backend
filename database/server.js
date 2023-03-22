@@ -1,12 +1,15 @@
 require('dotenv').config({ path: './database/.env' })
 const express = require('express')
-const routes = require('./routes')
+// const routes = require('./routes')
+const FixtureRoutes = require('./routes/Fixtures')
+const UserRoutes = require('./routes/User')
 const mongoose = require('mongoose')
 const mongoString = process.env.MONGO_URI
 
 const app = express()
 
-app.use('/api', routes)
+app.use('/fixtures', FixtureRoutes)
+app.use('/users', UserRoutes)
 
 app.use(express.json())
 
