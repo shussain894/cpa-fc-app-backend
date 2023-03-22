@@ -2,7 +2,11 @@ const User = require('../models/User')
 
 const UserController = {
   Create: async (req, res) => {
-    const {email, password, name} = req.body
+    console.log(req.body)
+    const email = req.body.email;
+    const password = req.body.password;
+    const name = req.body.name;
+
     try {
       const user = await User.signup(email, password, name)
 

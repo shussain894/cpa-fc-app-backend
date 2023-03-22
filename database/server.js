@@ -1,3 +1,4 @@
+const bp = require('body-parser')
 require('dotenv').config({ path: './database/.env' })
 const express = require('express')
 // const routes = require('./routes')
@@ -5,9 +6,12 @@ const FixtureRoutes = require('./routes/Fixtures')
 const UserRoutes = require('./routes/User')
 const mongoose = require('mongoose')
 const mongoString = process.env.MONGO_URI
+const cors = require('cors')
 
 const app = express()
-
+app.use(bp.json())
+app.use(bp.urlencoded({extended: true}))
+app.use(cors())
 app.use('/fixtures', FixtureRoutes)
 app.use('/users', UserRoutes)
 
