@@ -28,10 +28,10 @@ const UserController = {
 
   Update: async (req, res) => {
     try { 
-      await User.updateOne({_id: req.params.id},
+      await User.updateOne({_id: req.params.id}, {$push: {child: req.body}})
   
       res.status(201).json({ message: "OK"})
-    )} catch (error) {
+    } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }

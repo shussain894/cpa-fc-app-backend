@@ -10,6 +10,9 @@ const JWT = require("jsonwebtoken");
 const app = express()
 const tokensRouter = require("./routes/Token");
 
+// let options = {
+//   "origin": "*", "methods": "GET, HEAD, PUT, PATCH, DELETE, POST", "preflightContinue": false, "optionsSuccessStatus": 204
+// }
 
 app.use(express.json())
 
@@ -49,6 +52,12 @@ mongoose.connect(mongoString)
 
 app.use(bp.json())
 app.use(bp.urlencoded({extended: true}))
+app.options('*', cors())
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
+  next();
+})
 app.use(cors())
 app.use('/fixtures', tokenChecker, FixtureRoutes)
 app.use('/users', UserRoutes)
