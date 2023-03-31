@@ -4,10 +4,11 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   name: { type: String, required: true },
+  number: { type: String, required: true },
   child: { type: Array, default: [] }
 });
 
-UserSchema.statics.signup = async function(email, password, name) {
+UserSchema.statics.signup = async function(email, password, name, number) {
 
   const exists = await this.findOne({email})
 
@@ -16,7 +17,7 @@ UserSchema.statics.signup = async function(email, password, name) {
     throw Error('Email already in use')
   }
 
-  const user = await this.create({email, password, name})
+  const user = await this.create({email, password, name, number})
 
   return user
 };

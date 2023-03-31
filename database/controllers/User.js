@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const TokenGenerator = require('../models/token_generator')
 
 const UserController = {
   Create: async (req, res) => {
@@ -6,9 +7,10 @@ const UserController = {
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
+    const number = req.body.number;
 
     try {
-      const user = await User.signup(email, password, name)
+      const user = await User.signup(email, password, name, number)
 
       res.status(201).json({email, user})
     } catch (error) {
@@ -29,8 +31,9 @@ const UserController = {
   Update: async (req, res) => {
     try { 
       await User.updateOne({_id: req.params.id}, {$push: {child: req.body}})
-  
-      res.status(201).json({ message: "OK"})
+      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+
+      res.status(201).json({ message: "OK", token: token })
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
