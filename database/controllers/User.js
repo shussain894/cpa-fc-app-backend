@@ -6,11 +6,12 @@ const UserController = {
     console.log(req.body)
     const email = req.body.email;
     const password = req.body.password;
+    const title = req.body.title;
     const name = req.body.name;
     const number = req.body.number;
 
     try {
-      const user = await User.signup(email, password, name, number)
+      const user = await User.signup(email, password, title, name, number)
 
       res.status(201).json({email, user})
     } catch (error) {
