@@ -19,7 +19,6 @@ UserSchema.statics.signup = async function(email, password, title, name, number)
   }
 
   const user = await this.create({email, password, title, name, number})
-
   return user
 };
 
