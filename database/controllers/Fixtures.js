@@ -1,4 +1,5 @@
 const Fixtures = require('../models/Fixtures')
+const TokenGenerator = require('../models/token_generator')
 
 const FixturesController = {
   Index: (req, res) => {
@@ -6,27 +7,36 @@ const FixturesController = {
       if (err) {
         throw err;
       }
-      res.status(200).json({ group: group, opponent: opponent, date: date, time: time, location: location, confirmed: confirmed, result: result });
+      res.status(200).json({ group: group, opponent: opponent, date: date, time: time, venue: venue, confirmed: confirmed, result: result });
     });
   },
 
   Create: async (req, res) => {
-    const group = req.body.group;
-    const opponent = req.body.opponent;
-    const date = req.body.date;
-    const time = req.body.time;
-    const location = req.body.location;
-
-    const FixtureObject = { group, opponent, date, time, location }
-
-    const fixture = new Fixtures(FixtureObject)
-
-    fixture.save(async (err) => {
-      if (err) {
-        throw err;
-      }
+    try {
+      const group = req.body.group;
+      const opponent = req.body.opponent;
+      const date = req.body.date;
+      const time = req.body.time;
+      const venue = req.body.venue;
+  
+      const FixtureObject = { group, opponent, date, time, venue }
+  
+      const fixture = new Fixtures(FixtureObject);
+  
+      await fixture.save();
+      // const token = await TokenGenerator.jsonwebtoken(req.user_id);
+  
       res.status(201).json({ message: "OK" });
-    });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+
+    // fixture.save(async (err) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   res.status(201).json({ message: "OK" });
+    // });
   },
 
   Update: async(req, res) => {

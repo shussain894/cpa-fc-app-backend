@@ -5,7 +5,7 @@ const FixturesSchema = new mongoose.Schema({
   opponent: { type: String, required: true },
   date: { type: Date, required: true },
   time: { type: String, required: true },
-  location: { type: String, required: true },
+  venue: { type: String, required: true },
   confirmed: { type: Array, default: [] },
   result: { type: String }
 });
