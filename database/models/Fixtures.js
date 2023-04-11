@@ -10,4 +10,6 @@ const FixturesSchema = new mongoose.Schema({
   result: { type: String }
 });
 
-module.exports = FixturesSchema;
+const Fixtures = mongoose.model("Fixture", FixturesSchema);
+
+module.exports = Fixtures;

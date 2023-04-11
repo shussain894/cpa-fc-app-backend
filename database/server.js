@@ -28,7 +28,7 @@ const tokenChecker = (req, res, next) => {
   if (authHeader) {
     token = authHeader.slice(7);
   }
-
+  console.log('new token', token)
   JWT.verify(token, process.env.JWT_SECRET, (err, payload) => {
     if (err) {
       console.log(err);
@@ -58,7 +58,7 @@ app.use(bp.urlencoded({extended: true}))
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
 //   next();
 // })
-app.use(cors())
+// app.use(cors())
 app.use('/fixtures', tokenChecker, FixtureRoutes)
 app.use('/users', UserRoutes)
 app.use("/tokens", tokensRouter);

@@ -3,15 +3,19 @@ const TokenGenerator = require('../models/token_generator')
 
 const FixturesController = {
   Index: (req, res) => {
-    Fixtures.find(async (err, group) => {
-      if (err) {
-        throw err;
-      }
-      res.status(200).json({ group: group, opponent: opponent, date: date, time: time, venue: venue, confirmed: confirmed, result: result });
-    });
+    // Fixtures.find(async (err, group) => {
+    //   if (err) {
+    //     console.log('jwt error', err)
+    //     throw err;
+    //   }
+    //   res.status(200).json({ group: group, opponent: opponent, date: date, time: time, venue: venue, confirmed: confirmed, result: result });
+    // });
+    res.status(200).json({message: 'why aint this working'})
   },
 
   Create: async (req, res) => {
+    const { authorization } = req.headers
+    const token = authorization.split(' ')[1]
     try {
       const group = req.body.group;
       const opponent = req.body.opponent;
@@ -24,7 +28,8 @@ const FixturesController = {
       const fixture = new Fixtures(FixtureObject);
   
       await fixture.save();
-      // const token = await TokenGenerator.jsonwebtoken(req.user_id);
+      // const token = await TokenGenerator.jsonwebtoken(req.fixture_id);
+      
   
       res.status(201).json({ message: "OK" });
     } catch (error) {
