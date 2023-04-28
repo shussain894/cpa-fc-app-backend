@@ -5,7 +5,7 @@ const FixturesController = {
   Index: async (req, res) => {
     try { 
       const response = await Fixtures.find({});
-      console.log('LINE EIGHT IS STILL WORKING', response)
+      console.log('LINE EIGHT IS WORKING', response)
       res.status(200).json(response)
     // res.status(200).json({message: 'finally working'})
   } catch (error) {
