@@ -43,7 +43,7 @@ const tokenChecker = (req, res, next) => {
 mongoose.connect(mongoString)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log('connected & listening 4000', process.env.PORT)
+      console.log('connected and listening 4000', process.env.PORT)
     })
   })
   .catch((error) => {
