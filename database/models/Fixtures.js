@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose';
 
-const FixturesSchema = new mongoose.Schema({
+const FixturesSchema = new Schema({
   group: { type: String, required: true },
   opponent: { type: String, required: true },
   date: { type: Date, required: true },
@@ -10,6 +10,6 @@ const FixturesSchema = new mongoose.Schema({
   result: { type: String }
 });
 
-const Fixtures = mongoose.model("Fixture", FixturesSchema);
+const Fixtures = model("Fixture", FixturesSchema);
 
-module.exports = Fixtures;
+export default Fixtures;

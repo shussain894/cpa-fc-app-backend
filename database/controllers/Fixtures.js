@@ -1,5 +1,5 @@
-const Fixtures = require('../models/Fixtures')
-const TokenGenerator = require('../models/token_generator')
+import Fixtures from '../models/Fixtures.js';
+import TokenGenerator from '../models/token_generator.js';
 
 const FixturesController = {
   Index: async (req, res) => {
@@ -55,4 +55,4 @@ const FixturesController = {
 
 }
 
-module.exports = FixturesController
+export default FixturesController

@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const FixturesController = require("../controllers/Fixtures");
+import FixturesController from "../controllers/Fixtures.js";
 
 router.post("/", FixturesController.Create);
 router.get("/", FixturesController.Index);
 router.patch("/:id", FixturesController.Update);
 router.delete("/:id", FixturesController.Delete);
 
-module.exports = router;
+export default router;

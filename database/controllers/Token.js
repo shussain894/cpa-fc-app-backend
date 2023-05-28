@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const TokenGenerator = require("../models/token_generator")
+import User from "../models/User.js";
+import TokenGenerator from "../models/token_generator.js";
 
 const SessionsController = {
 
@@ -22,4 +22,4 @@ const SessionsController = {
   }
 };
 
-module.exports = SessionsController;
+export default SessionsController;

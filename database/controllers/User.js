@@ -1,5 +1,5 @@
-const User = require('../models/User')
-const TokenGenerator = require('../models/token_generator')
+import User from '../models/User.js';
+import TokenGenerator from '../models/token_generator.js';
 
 const UserController = {
   Create: async (req, res) => {
@@ -41,4 +41,4 @@ const UserController = {
   }
 }
 
-module.exports = UserController;
+export default UserController;

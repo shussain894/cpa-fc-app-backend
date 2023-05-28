@@ -1,19 +1,20 @@
-const bp = require('body-parser')
-require('dotenv').config({ path: './database/.env' })
-const express = require('express')
-const FixtureRoutes = require('./routes/Fixtures')
-const UserRoutes = require('./routes/User')
-const mongoose = require('mongoose')
-const mongoString = process.env.MONGO_URI
-const cors = require('cors')
-const JWT = require("jsonwebtoken");
-const app = express()
-const tokensRouter = require("./routes/Token");
+import BodyParser from 'body-parser'
+// require('dotenv').config({ path: './database/.env' })
+import dotenv from "dotenv"
+import express from 'express'
+import Mongoose from 'mongoose'
+import cors from 'cors'
+import JSonwebtoken from "jsonwebtoken"
+import tokensRouter from './routes/Token.js'
+import FixtureRoutes from './routes/Fixtures.js'
+import UserRoutes from './routes/User.js'
 
 // let options = {
 //   "origin": "*", "methods": "GET, HEAD, PUT, PATCH, DELETE, POST", "preflightContinue": false, "optionsSuccessStatus": 204
 // }
-
+const app = express()
+dotenv.config({ path: './database/.env' })
+const mongoString = process.env.MONGO_URI
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -29,7 +30,7 @@ const tokenChecker = (req, res, next) => {
     token = authHeader.slice(7);
   }
   console.log('new token', token)
-  JWT.verify(token, process.env.JWT_SECRET, (err, payload) => {
+  JSonwebtoken.verify(token, process.env.JWT_SECRET, (err, payload) => {
     if (err) {
       console.log(err);
       res.status(401).json({ message: "auth error" });
@@ -40,18 +41,19 @@ const tokenChecker = (req, res, next) => {
   });
 };
 
-mongoose.connect(mongoString)
+Mongoose.connect(mongoString)
   .then(() => {
     app.listen(process.env.PORT, () => {
       console.log('connected and listening to port 4000', process.env.PORT)
     })
   })
   .catch((error) => {
+    console.log('I FAILED')
     console.log(error)
   })
 
-app.use(bp.json())
-app.use(bp.urlencoded({extended: true}))
+app.use(BodyParser.json())
+app.use(BodyParser.urlencoded({extended: true}))
 // app.options('*', cors())
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -59,6 +61,7 @@ app.use(bp.urlencoded({extended: true}))
 //   next();
 // })
 // app.use(cors())
+app.get("/", (req, res) => res.status(200).send("Hello World, CPA's backend"));
 app.use('/fixtures', tokenChecker, FixtureRoutes)
 app.use('/users', UserRoutes)
 app.use("/tokens", tokensRouter);

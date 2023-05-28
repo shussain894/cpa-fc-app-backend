@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   title: { type: String, required: true },
@@ -22,6 +22,6 @@ UserSchema.statics.signup = async function(email, password, title, name, number)
   return user
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = model("User", UserSchema);
 
-module.exports = User;
+export default User;
