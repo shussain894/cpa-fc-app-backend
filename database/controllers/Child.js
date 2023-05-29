@@ -1,4 +1,5 @@
 import Child from '../models/Child.js';
+import User from '../models/User.js';
 import TokenGenerator from '../models/token_generator.js';
 
 const ChildController = {
@@ -6,23 +7,15 @@ const ChildController = {
     const {name, dob, address, group, school,relationshipToChild, 
       nokName, nokNumber, doctorName, surgeryName, surgeryNumber } = req.body
     console.log(req.body)
-    // const name = req.body.name;
-    // const dob = req.body.dob;
-    // const address = req.body.address;
-    // const group = req.body.group;
-    // const school = req.body.school;
-    // const relationshipToChild = req.body.relationshipToChild;
-    // const nokName = req.body.nokName;
-    // const nokNumber = req.body.nokNumber;
-    // const doctorName = req.body.doctorName;
-    // const surgeryName = req.body.surgeryName;
-    // const surgeryNumber = req.body.surgeryNumber;
 
     try {
+      if (!req.body) throw new Error('req.body is not found')
       const child = await Child.create({name, dob, address, group, school,relationshipToChild, 
         nokName, nokNumber, doctorName, surgeryName, surgeryNumber})
+      
+      await User.updateOne({_id: req.user_id}, {$push: {child: child._id}})
 
-      res.status(201).json({email, child})
+      res.status(201).json({child})
     } catch (error) {
       res.status(400).json({error: error.message});
     }
@@ -30,24 +23,28 @@ const ChildController = {
 
   Find: async (req, res) => {
     try {
-      const user = await User.findOne({_id: req.get('User_ID')}, {password: 0})
+      const child = await Child.findOne({_id: req.get('Child_ID')})
 
-      res.status(201).json({user: user})
+      res.status(201).json({child: child})
     } catch (error) {
       res.status(400).json({error: error.message})
     }
   },
+  // THIS IS A TO DO AS WE DONT WANT TO SAVE EACH FIELD JUST WHAT HAS BEEN UPDATED
+  //
+  // Update: async (req, res) => {
+  //   const {name, dob, address, group, school,relationshipToChild, 
+  //     nokName, nokNumber, doctorName, surgeryName, surgeryNumber } = req.body
 
-  Update: async (req, res) => {
-    try { 
-      await User.updateOne({_id: req.params.id}, {$push: {child: req.body}})
-      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+  //   try { 
+  //     await User.updateOne({_id: req.params.id}, {$push: {child: req.body}})
+  //     const token = await TokenGenerator.jsonwebtoken(req.user_id);
 
-      res.status(201).json({ message: "OK", token: token })
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  }
+  //     res.status(201).json({ message: "OK", token: token })
+  //   } catch (error) {
+  //     res.status(400).json({ error: error.message });
+  //   }
+  // }
 }
 
-export default UserController;
+export default ChildController;

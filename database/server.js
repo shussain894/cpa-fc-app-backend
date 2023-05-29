@@ -8,6 +8,7 @@ import JSonwebtoken from "jsonwebtoken"
 import tokensRouter from './routes/Token.js'
 import FixtureRoutes from './routes/Fixtures.js'
 import UserRoutes from './routes/User.js'
+import ChildRoutes from './routes/Child.js'
 
 // let options = {
 //   "origin": "*", "methods": "GET, HEAD, PUT, PATCH, DELETE, POST", "preflightContinue": false, "optionsSuccessStatus": 204
@@ -65,3 +66,4 @@ app.get("/", (req, res) => res.status(200).send("Hello World, CPA's backend"));
 app.use('/fixtures', tokenChecker, FixtureRoutes)
 app.use('/users', UserRoutes)
 app.use("/tokens", tokensRouter);
+app.use("/child", ChildRoutes);
