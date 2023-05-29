@@ -4,17 +4,19 @@ import TokenGenerator from '../models/token_generator.js';
 
 const ChildController = {
   Create: async (req, res) => {
+    console.log('I am here')
     const {name, dob, address, group, school,relationshipToChild, 
-      nokName, nokNumber, doctorName, surgeryName, surgeryNumber } = req.body
-    console.log(req.body)
-
+      nokName, nokNumber, doctorName, surgeryName, surgeryNumber, user_id } = req.body
+    console.log(name)
+    console.log('b')
     try {
+      console.log('c')
       if (!req.body) throw new Error('req.body is not found')
       const child = await Child.create({name, dob, address, group, school,relationshipToChild, 
         nokName, nokNumber, doctorName, surgeryName, surgeryNumber})
-      
-      await User.updateOne({_id: req.user_id}, {$push: {child: child._id}})
-
+        console.log('d')
+      await User.updateOne({_id: user_id}, {$push: {child: child._id}}) 
+      console.log('e')
       res.status(201).json({child})
     } catch (error) {
       res.status(400).json({error: error.message});
