@@ -5,7 +5,8 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   title: { type: String, required: true },
   name: { type: String, required: true },
-  number: { type: String, required: true }
+  number: { type: String, required: true },
+  accountType: { type: String, default: "user" }
 });
 
 UserSchema.statics.signup = async function(email, password, title, name, number) {

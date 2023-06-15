@@ -1,7 +1,7 @@
-import User from '../models/User.js';
+import Coach from '../models/Coach.js';
 import TokenGenerator from '../models/token_generator.js';
 
-const UserController = {
+const CoachController = {
   Create: async (req, res) => {
     console.log(req.body)
     const email = req.body.email;
@@ -11,9 +11,9 @@ const UserController = {
     const number = req.body.number;
 
     try {
-      const user = await User.signup(email, password, title, name, number)
+      const coach = await Coach.signup(email, password, title, name, number)
 
-      res.status(201).json({email, user})
+      res.status(201).json({email, coach})
     } catch (error) {
       res.status(400).json({error: error.message});
     }
@@ -21,7 +21,7 @@ const UserController = {
 
   Find: async (req, res) => {
     try {
-      const user = await User.findOne({_id: req.get('User_ID')}, {password: 0})
+      const coach = await Coach.findOne({_id: req.get('Coach_ID')}, {password: 0})
 
       res.status(201).json({user: user})
     } catch (error) {
@@ -40,4 +40,4 @@ const UserController = {
   }
 }
 
-export default UserController;
+export default CoachController;
