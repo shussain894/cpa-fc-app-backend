@@ -7,7 +7,7 @@ const ChildSchema = new Schema({
   group: { type: String, required: true },
   school: { type: String, required: true },
   relationshipToChild: { type: String, required: true },
-  userID: { type: String },
+  userID: { type: String, required: true },
   nokName: { type: String, required: true },
   nokNumber: { type: String, required: true },
   doctorName: { type: String, required: true },
