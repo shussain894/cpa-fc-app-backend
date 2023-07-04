@@ -8,7 +8,7 @@ const ChildController = {
       nokName, nokNumber, doctorName, surgeryName, surgeryNumber, user_id } = req.body
     
     try {
-      if (!req.body) throw new Error('req.body not found')
+      if (!req.body) throw new Error('req.body has not been found')
       const child = await Child.create({name, dob, address, group, school,relationshipToChild, 
         nokName, nokNumber, doctorName, surgeryName, surgeryNumber, userID: user_id})
       res.status(201).json({child})
