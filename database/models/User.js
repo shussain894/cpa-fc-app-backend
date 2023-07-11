@@ -15,7 +15,7 @@ UserSchema.statics.signup = async function(email, password, title, name, number)
 
   if (exists) {
     
-    throw Error('Email already in use')
+    throw Error('Email is already in use')
   }
 
   const user = await this.create({email, password, title, name, number})
